@@ -1,11 +1,13 @@
 package com.siddhi.taskmanagement.dto;
 
 import com.siddhi.taskmanagement.model.TaskStatus;
+import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 public class TaskDto {
 
     private Long id;
+    @NotBlank(message = "Title is required")
     private String title;
     private String description;
     private LocalDate assignedDate;

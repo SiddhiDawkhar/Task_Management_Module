@@ -1,6 +1,7 @@
 package com.siddhi.taskmanagement.dto;
 
 import com.siddhi.taskmanagement.model.Role;
+import jakarta.validation.constraints.Email;
 import java.time.LocalDate;
 
 public class UserDto {
@@ -8,6 +9,7 @@ public class UserDto {
     private Long id;
     private String firstName;
     private String lastName;
+    @Email
     private String email;
     private String password;
     private Role role;
