@@ -1,4 +1,4 @@
-package com.siddhi.taskmanagement.exception;   // ← this package must match
+package com.siddhi.taskmanagement.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
 

@@ -3,8 +3,10 @@ package com.siddhi.taskmanagement.controller;
 import com.siddhi.taskmanagement.dto.AuthRequest;
 import com.siddhi.taskmanagement.dto.AuthResponse;
 import com.siddhi.taskmanagement.security.JwtUtil;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -20,7 +22,7 @@ public class AuthController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/api/auth/login")
-    public AuthResponse login(@RequestBody AuthRequest request) {
+    public AuthResponse login(@Valid @RequestBody AuthRequest request) {
 
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -43,7 +45,7 @@ public class AuthController {
 
 
         } catch (AuthenticationException e) {
-            throw new RuntimeException("Invalid email or password");
+            throw new BadCredentialsException("Invalid email or password");
         }
     }
 }

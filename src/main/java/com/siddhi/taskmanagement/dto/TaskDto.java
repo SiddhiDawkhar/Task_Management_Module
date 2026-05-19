@@ -1,18 +1,42 @@
 package com.siddhi.taskmanagement.dto;
 
 import com.siddhi.taskmanagement.model.TaskStatus;
+import com.siddhi.taskmanagement.model.TaskPriority;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 public class TaskDto {
 
     private Long id;
+
+    @NotBlank(message = "Title is required")
+    @Size(max = 100, message = "Title cannot exceed 100 characters")
     private String title;
+
+    @Size(max = 1000, message = "Description cannot exceed 1000 characters")
     private String description;
+
     private LocalDate assignedDate;
+
+    @NotNull(message = "Due date is required")
+    @FutureOrPresent(message = "Due date cannot be in the past")
     private LocalDate dueDate;
+
     private LocalDate completedDate;
+
     private TaskStatus status;
+
+    @NotNull(message = "Priority is required")
+    private TaskPriority priority;
+
+    @NotNull(message = "Manager id is required")
     private Long managerId;
+
+    @NotNull(message = "Employee id is required")
     private Long employeeId;
 
     public TaskDto() {
@@ -21,7 +45,7 @@ public class TaskDto {
     // Full constructor
     public TaskDto(Long id, String title, String description,
                    LocalDate assignedDate, LocalDate dueDate,
-                   LocalDate completedDate, TaskStatus status,
+                   LocalDate completedDate, TaskStatus status, TaskPriority priority,
                    Long managerId, Long employeeId) {
         this.id = id;
         this.title = title;
@@ -30,6 +54,7 @@ public class TaskDto {
         this.dueDate = dueDate;
         this.completedDate = completedDate;
         this.status = status;
+        this.priority = priority;
         this.managerId = managerId;
         this.employeeId = employeeId;
     }
@@ -90,6 +115,14 @@ public class TaskDto {
     { this.status = status;
     }
 
+    public TaskPriority getPriority()
+    { return priority;
+    }
+
+    public void setPriority(TaskPriority priority)
+    { this.priority = priority;
+    }
+
     public Long getManagerId()
     { return managerId;
     }
@@ -112,6 +145,7 @@ public class TaskDto {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", status=" + status +
+                ", priority=" + priority +
                 ", managerId=" + managerId +
                 ", employeeId=" + employeeId +
                 '}';

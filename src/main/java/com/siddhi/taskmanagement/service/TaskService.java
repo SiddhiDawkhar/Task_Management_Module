@@ -43,6 +43,7 @@ public class TaskService {
         task.setAssignedDate(LocalDate.now());
         task.setDueDate(dto.getDueDate());
         task.setStatus(TaskStatus.PENDING);
+        task.setPriority(dto.getPriority());
         task.setManager(manager);
         task.setEmployee(employee);
 
@@ -91,6 +92,7 @@ public class TaskService {
         dto.setDueDate(task.getDueDate());
         dto.setCompletedDate(task.getCompletedDate());
         dto.setStatus(task.getStatus());
+        dto.setPriority(task.getPriority());
         dto.setManagerId(task.getManager().getId());
         dto.setEmployeeId(task.getEmployee().getId());
         return dto;

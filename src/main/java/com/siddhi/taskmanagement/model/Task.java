@@ -28,6 +28,9 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
 
+    @Enumerated(EnumType.STRING)
+    private TaskPriority priority;
+
     // Manager who created the task
     @ManyToOne
     @JoinColumn(name = "created_by")
@@ -97,6 +100,14 @@ public class Task {
         this.status = status;
     }
 
+    public TaskPriority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(TaskPriority priority) {
+        this.priority = priority;
+    }
+
     public User getManager() {
         return manager;
     }
@@ -127,6 +138,7 @@ public class Task {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", status=" + status +
+                ", priority=" + priority +
                 ", assignedDate=" + assignedDate +
                 ", dueDate=" + dueDate +
                 ", completedDate=" + completedDate +
