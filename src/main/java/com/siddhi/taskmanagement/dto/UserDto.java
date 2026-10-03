@@ -1,23 +1,55 @@
 package com.siddhi.taskmanagement.dto;
 
 import com.siddhi.taskmanagement.model.Role;
-import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 
 public class UserDto {
 
     private Long id;
+
+    @NotBlank(message = "First name is required")
+    @Size(min = 2, max = 30)
     private String firstName;
+
+    @NotBlank(message = "Last name is required")
+    @Size(min = 2, max = 30)
     private String lastName;
-    @Email
+
+    @NotBlank(message = "Email is required")
+    @Email(message = "Enter a valid email")
     private String email;
+
+    @NotBlank(message = "Password is required")
+    @Size(min = 8, max = 20)
     private String password;
+
+    @NotNull(message = "Role is required")
     private Role role;
+
+    @NotBlank(message = "Mobile number is required")
+    @Pattern(
+            regexp = "^[6-9]\\d{9}$",
+            message = "Enter valid mobile number"
+    )
     private String mobile;
+
+    @NotBlank(message = "Address is required")
+    @Size(max = 200)
     private String address;
+
+    @NotNull(message = "Age is required")
+    @Min(value = 18, message = "Minimum age is 18")
+    @Max(value = 65, message = "Maximum age is 65")
     private Integer age;
+
+    @NotNull(message = "Salary is required")
+    @Positive(message = "Salary must be positive")
     private Double salary;
+
+    @NotNull(message = "Joining date is required")
     private LocalDate joiningDate;
+
     private LocalDate leavingDate;
 
     public UserDto() {

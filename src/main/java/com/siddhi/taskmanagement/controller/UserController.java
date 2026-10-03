@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class UserController {
     private UserService userService;
 
     // CREATE - Register new user
+    @PreAuthorize("hasRole('MANAGER')")
     @PostMapping("/api/users")
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
         UserDto createdUser = userService.createUser(userDto);
@@ -23,6 +25,7 @@ public class UserController {
     }
 
     // READ - Get user by ID
+    @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("/api/users/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         UserDto user = userService.getUserById(id);
@@ -30,6 +33,7 @@ public class UserController {
     }
 
     // READ - Get user by email
+    @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("/api/users/email/{email}")
     public ResponseEntity<UserDto> getUserByEmail(@PathVariable String email) {
         UserDto user = userService.getUserByEmail(email);
@@ -37,6 +41,7 @@ public class UserController {
     }
 
     // READ - Get all users
+    @PreAuthorize("hasRole('MANAGER')")
     @GetMapping("/api/users")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<UserDto> users = userService.getAllUsers();
@@ -45,7 +50,9 @@ public class UserController {
 
     // UPDATE - Update user details
     @PutMapping("/api/users/{id}")
+    @PreAuthorize("hasRole('MANAGER')")
     public ResponseEntity<UserDto> updateUser(
+            @Valid
             @PathVariable Long id,
             @RequestBody UserDto userDto) {
 
@@ -54,6 +61,7 @@ public class UserController {
     }
 
     // DELETE - Delete user
+    @PreAuthorize("hasRole('MANAGER')")
     @DeleteMapping("/api/users/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);

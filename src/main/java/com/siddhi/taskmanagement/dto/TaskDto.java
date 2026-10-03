@@ -2,19 +2,40 @@ package com.siddhi.taskmanagement.dto;
 
 import com.siddhi.taskmanagement.model.TaskStatus;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 public class TaskDto {
 
     private Long id;
+
     @NotBlank(message = "Title is required")
+    @Size(min = 3, max = 100, message = "Title must be between 3 and 100 characters")
     private String title;
+
+    @NotBlank(message = "Description is required")
+    @Size(max = 500, message = "Description cannot exceed 500 characters")
     private String description;
+
+    @NotNull(message = "Assigned date is required")
     private LocalDate assignedDate;
+
+    @NotNull(message = "Due date is required")
     private LocalDate dueDate;
+
     private LocalDate completedDate;
+
+    @NotNull(message = "Status is required")
     private TaskStatus status;
+
+    @NotNull(message = "Manager ID is required")
+    @Positive(message = "Manager ID must be positive")
     private Long managerId;
+
+    @NotNull(message = "Employee ID is required")
+    @Positive(message = "Employee ID must be positive")
     private Long employeeId;
 
     public TaskDto() {

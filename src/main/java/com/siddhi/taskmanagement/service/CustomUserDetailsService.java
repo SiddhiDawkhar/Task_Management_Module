@@ -2,6 +2,7 @@ package com.siddhi.taskmanagement.service;
 
 import com.siddhi.taskmanagement.model.User;
 import com.siddhi.taskmanagement.repository.UserRepository;
+import com.siddhi.taskmanagement.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.*;
@@ -21,12 +22,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail(),
-                user.getPassword(),
-                Collections.singletonList(
-                        new SimpleGrantedAuthority("ROLE_" + user.getRole().name())
-                )
-        );
+        return new CustomUserDetails(user);
     }
 }
